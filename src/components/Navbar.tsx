@@ -1,29 +1,28 @@
 import { useEffect } from "react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HoverLinks from "./HoverLinks";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./styles/Navbar.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Navbar = () => {
   useEffect(() => {
-    let links = document.querySelectorAll(".header ul a");
+    const links = document.querySelectorAll(".header ul a");
 
     links.forEach((elem) => {
-      let element = elem as HTMLAnchorElement;
+      const element = elem as HTMLAnchorElement;
 
       element.addEventListener("click", (e) => {
         if (window.innerWidth > 1024) {
           e.preventDefault();
 
-          let elem = e.currentTarget as HTMLAnchorElement;
-          let section = elem.getAttribute("data-href");
+          const target = element.getAttribute("data-href");
 
-          if (section) {
+          if (target) {
             gsap.to(window, {
               duration: 1,
-              scrollTo: section,
+              scrollTo: target,
               ease: "power2.out",
             });
           }
@@ -31,22 +30,19 @@ const Navbar = () => {
       });
     });
 
-    window.addEventListener("resize", () => {
-      ScrollTrigger.refresh();
-    });
+    ScrollTrigger.refresh();
   }, []);
 
   return (
     <>
       <div className="header">
-        <a href="/#" className="navbar-title" data-cursor="disable">
+        <a href="/#" className="navbar-title">
           RC
         </a>
 
         <a
           href="mailto:rajeshchittyal21@gmail.com"
           className="navbar-connect"
-          data-cursor="disable"
         >
           rajeshchittyal21@gmail.com
         </a>
